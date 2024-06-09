@@ -1,11 +1,23 @@
 <?php
 include 'config.php';
+
 $search = isset($_GET['search']) ? $_GET['search'] : '';
-$sql = "SELECT id, name, price, image FROM products WHERE name LIKE '%$search%'";
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$products_per_page = 12;
+$offset = ($page - 1) * $products_per_page;
+
+$total_sql = "SELECT COUNT(*) as total FROM products WHERE name LIKE '%$search%'";
+$total_result = $conn->query($total_sql);
+$total_row = $total_result->fetch_assoc();
+$total_products = $total_row['total'];
+
+$total_pages = ceil($total_products / $products_per_page);
+
+$sql = "SELECT id, name, price, image FROM products WHERE name LIKE '%$search%' LIMIT $offset, $products_per_page";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         echo "<div class='product'>";
         echo "<img src='" . $row["image"] . "' alt='" . $row["name"] . "' class='product__image'>";
         echo "<h2 class='product__name'>" . $row["name"] . "</h2>";
@@ -20,5 +32,19 @@ if ($result->num_rows > 0) {
     echo "<p class='no-results'>Không có sản phẩm nào</p>";
 }
 
-$conn->close();
+if ($total_pages > 1) {
+    echo "<div class='pagination' style='text-align: right; display: flex; justify-content: flex-end; gap: 10px;'>";
+   
+    for ($i = 1; $i <= $total_pages; $i++) {
+        if ($i == $page) {
+            echo "<span class='current-page' style='display: inline-block; padding: 10px 15px; background-color: #4CAF50; color: white; border-radius: 5px;'>$i</span>";
+        } else {
+            echo "<a href='?search=$search&page=$i' style='display: inline-block; padding: 10px 15px; background-color: #f1f1f1; color: black; text-decoration: none; border: 1px solid #ccc; border-radius: 5px; transition: background-color 0.3s;' 
+            onmouseover='this.style.backgroundColor=\"#e0e0e0\";' 
+            onmouseout='this.style.backgroundColor=\"#f1f1f1\";'>$i</a>";
+        }
+    }
+
+    echo "</div>";
+}
 ?>
