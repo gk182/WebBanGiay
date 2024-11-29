@@ -18,8 +18,9 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        // Liên kết đến trang chi tiết sản phẩm khi click vào ảnh
         echo "<div class='product'>";
-        echo "<img src='" . $row["image"] . "' alt='" . $row["name"] . "' class='product__image'>";
+        echo "<a href='product_detail.php?id=" . $row["id"] . "'><img src='" . $row["image"] . "' alt='" . $row["name"] . "' class='product__image'></a>";
         echo "<h2 class='product__name'>" . $row["name"] . "</h2>";
         echo "<p class='product__price'>" . number_format($row["price"], 0, '.', ',') . " VND</p>";
         echo "<form method='POST' action='add_to_cart.php' class='product__form'>";

@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "0728012004";
 $dbname = "shoe_store";
 
 // Tạo kết nối
