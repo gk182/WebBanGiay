@@ -101,3 +101,28 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(255) NOT NULL,  -- Sửa tên cột này nếu cần
+    addres VARCHAR(255) NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- Tạo bảng order_details
+CREATE TABLE order_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+
+-- Bật kiểm tra khóa ngoại sau khi hoàn tất
+SET FOREIGN_KEY_CHECKS = 1;
+-- Xóa ràng buộc khóa ngoại
+ALTER TABLE order_details DROP FOREIGN KEY order_details_ibfk_1;
+DROP TABLE orders;
