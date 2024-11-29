@@ -1,0 +1,114 @@
+/* Cấu trúc chung */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Tiêu đề sản phẩm */
+h1 {
+    font-size: 32px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Chứa hình ảnh và thông tin sản phẩm */
+.product-detail {
+    display: left;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+/* Cột hình ảnh sản phẩm */
+.product-detail img {
+    width: 150px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+/* Cột thông tin sản phẩm */
+.product-info {
+    flex: 1;
+    min-width: 280px;
+}
+
+.product-info .product__price {
+    font-size: 24px;
+    color: #4CAF50;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.product-info .product__description {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.product-info .no-description {
+    font-size: 16px;
+    color: #888;
+}
+
+/* Form thêm vào giỏ hàng */
+.product__form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Button */
+/* Button */
+.product__button {
+    padding: 8px 16px; /* Giảm padding để nút nhỏ lại */
+    background-color: #333; /* Màu nền của nút */
+    color: white;
+    border: none;
+    border-radius: 6px; /* Đường viền mềm mại */
+    cursor: pointer;
+    font-size: 16px; /* Kích thước chữ trong nút */
+    text-align: center; /* Căn giữa chữ */
+    display: inline-block; /* Giúp nút có kích thước phù hợp với nội dung chữ */
+    transition: background-color 0.3s ease; /* Hiệu ứng hover */
+    width: auto; /* Đảm bảo nút chỉ dài bằng chữ */
+    max-width: 20%; /* Đảm bảo nút không vượt quá kích thước bố cục */
+    box-sizing: border-box; /* Bao gồm padding trong tính toán chiều rộng */
+}
+
+/* Hover hiệu ứng cho button */
+.product__button:hover {
+    background-color: #333; /* Màu nền thay đổi khi hover */
+}
+
+/* Đảm bảo layout responsive */
+@media (max-width: 768px) {
+    .product-detail {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-info {
+        text-align: center;
+    }
+
+    .product__button {
+        font-size: 18px;
+        padding: 14px 25px;
+    }
+}
