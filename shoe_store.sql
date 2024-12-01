@@ -26,14 +26,22 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `products`
 --
-
-CREATE TABLE `products` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `price` decimal(14,2) NOT NULL,
-  `image` varchar(255) NOT NULL
+-- Tạo bảng Users
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,  -- Thêm trường địa chỉ cho người dùng
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE products (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  price DECIMAL(14, 2) NOT NULL,
+  image VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Dumping data for table `products`
 --
@@ -103,15 +111,17 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_name VARCHAR(255) NOT NULL,  -- Sửa tên cột này nếu cần
+    customer_name VARCHAR(255) NOT NULL,
     addres VARCHAR(255) NOT NULL,
     phone VARCHAR(15) NOT NULL,
     total_price DECIMAL(10, 2) NOT NULL,
-    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 
--- Tạo bảng order_details
+-- Tạo bảng Order Details
 CREATE TABLE order_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
@@ -120,9 +130,10 @@ CREATE TABLE order_details (
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
-
 -- Bật kiểm tra khóa ngoại sau khi hoàn tất
 SET FOREIGN_KEY_CHECKS = 1;
 -- Xóa ràng buộc khóa ngoại
 ALTER TABLE order_details DROP FOREIGN KEY order_details_ibfk_1;
 DROP TABLE orders;
+
+
