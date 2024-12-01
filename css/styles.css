@@ -294,4 +294,43 @@ nav ul li a:hover {
 
 .footer button:hover {
     background-color: #444;
+}/* Định dạng user menu */
+.user-menu {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.user-menu i {
+    font-size: 20px;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.user-menu:hover i {
+    color: #007bff;
+}
+
+.user-menu .dropdown {
+    display: none; /* Ẩn menu mặc định */
+    position: absolute;
+    top: 30px; /* Điều chỉnh vị trí menu */
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.user-menu .dropdown a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.user-menu .dropdown a:hover {
+    background-color: #f0f0f0;
 }
